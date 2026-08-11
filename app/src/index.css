@@ -1,0 +1,425 @@
+@import 'tailwindcss';
+
+@import '@fontsource-variable/ibm-plex-sans/index.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================================================================
+   DESIGN TOKENS — "My Future Pension"
+   ----------------------------------------------------------------------------
+   Palette derives from the Uzbek state colours (deep blue, white, green) but
+   held at institutional saturation: blue carries structure, green appears only
+   where it means growth or confirmation. Nothing is decorative.
+   Every foreground/background pair below is checked to WCAG AA (4.5:1 body,
+   3:1 large/UI). See docs/DESIGN.md for the measured ratios.
+   ========================================================================= */
+
+:root {
+  /* Brand blue — structure, authority, navigation */
+  --blue-50: #f2f7fd;
+  --blue-100: #e4edf9;
+  --blue-200: #c3d7f2;
+  --blue-300: #8ab2e6;
+  --blue-400: #4e88d4;
+  --blue-500: #2565b8;
+  --blue-600: #1a5099;
+  --blue-700: #123c78;
+  --blue-800: #0e2e5e;
+  --blue-900: #0a2144;
+  --blue-950: #061529;
+
+  /* Green — growth, positive delta, confirmation. Used sparingly. */
+  --green-100: #dcf3e8;
+  --green-400: #34bc82;
+  --green-500: #12a265;
+  --green-600: #0e7f52;
+  --green-700: #0b6b45;
+
+  /* Amber — attention, contribution gaps. Never alarm-red for a gap. */
+  --amber-100: #fdf0d5;
+  --amber-500: #d97706;
+  --amber-600: #b45309;
+
+  /* Red — errors and destructive actions only */
+  --red-100: #fde8e6;
+  --red-500: #d63c2e;
+  --red-600: #b42318;
+
+  color-scheme: light;
+
+  --bg: #f6f8fb;
+  --surface: #ffffff;
+  --surface-2: #fafbfd;
+  --surface-inset: #f2f5f9;
+  --border: #e3e8ef;
+  --border-strong: #cdd7e3;
+
+  /* Ratios measured against --surface by contrast-check.mjs. All three clear
+     WCAG AA body text (4.5:1) on surface, page background AND inset, because
+     every one of them is used on all three. */
+  --fg: #0b1b33; /* 17.2:1 */
+  --fg-muted: #4d5b73; /* 6.9:1 */
+  --fg-subtle: #606e83; /* 5.2:1 */
+
+  --primary: var(--blue-700); /* 10.8:1 on surface */
+  --primary-hover: var(--blue-800);
+  --on-primary: #ffffff;
+  --primary-soft: var(--blue-50);
+  --primary-soft-fg: var(--blue-800);
+
+  --accent: var(--green-600); /* 5.0:1 on surface */
+  --accent-soft: var(--green-100);
+  --accent-soft-fg: var(--green-700);
+
+  --warning: var(--amber-600);
+  --warning-soft: var(--amber-100);
+  --warning-soft-fg: #7c3d06;
+
+  --danger: var(--red-600);
+  --danger-soft: var(--red-100);
+  --danger-soft-fg: #8f1d12;
+
+  --ring: var(--blue-500);
+
+  /* Data-visualisation ramp. Distinguishable in both themes; every chart that
+     uses more than one series also varies stroke style, never colour alone. */
+  --viz-current: #1a5099;
+  --viz-optimised: #0e7f52;
+  --viz-band: #2565b8;
+  --viz-grid: #e6ebf2;
+  --viz-axis: #6e7e97;
+  --viz-1: #123c78;
+  --viz-2: #2565b8;
+  --viz-3: #12a265;
+  --viz-4: #d97706;
+  --viz-5: #6e7e97;
+  --viz-6: #8ab2e6;
+
+  /* Elevation — restrained. Depth comes from borders first, shadow second. */
+  --shadow-sm: 0 1px 2px 0 rgb(11 27 51 / 0.05);
+  --shadow-md: 0 2px 4px -1px rgb(11 27 51 / 0.06), 0 4px 12px -2px rgb(11 27 51 / 0.06);
+  --shadow-lg: 0 8px 32px -8px rgb(11 27 51 / 0.14);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --bg: #070e1b;
+  --surface: #0d1728;
+  --surface-2: #121e33;
+  --surface-inset: #0a1322;
+  --border: #1e2c45;
+  --border-strong: #2c3d5a;
+
+  --fg: #e6edf8; /* 15.2:1 on surface */
+  --fg-muted: #9daeca; /* 8.0:1 on surface */
+  --fg-subtle: #7f90ac; /* 5.5:1 on surface */
+
+  --primary: #5b94e0; /* 5.8:1 on surface */
+  --primary-hover: #7dabe8;
+  --on-primary: #04101f;
+  --primary-soft: #12233d;
+  --primary-soft-fg: #9dc0ee;
+
+  --accent: #34bc82; /* 7.4:1 on surface */
+  --accent-soft: #0c2b20;
+  --accent-soft-fg: #6bd6a5;
+
+  --warning: #e59b3d;
+  --warning-soft: #2e2110;
+  --warning-soft-fg: #f0bd7a;
+
+  --danger: #f0705f;
+  --danger-soft: #33150f;
+  --danger-soft-fg: #f5988b;
+
+  --ring: #5b94e0;
+
+  --viz-current: #5b94e0;
+  --viz-optimised: #34bc82;
+  --viz-band: #5b94e0;
+  --viz-grid: #1b2942;
+  --viz-axis: #7f90ac;
+  --viz-1: #5b94e0;
+  --viz-2: #8ab2e6;
+  --viz-3: #34bc82;
+  --viz-4: #e59b3d;
+  --viz-5: #7f90ac;
+  --viz-6: #c3d7f2;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+  --shadow-md: 0 2px 4px -1px rgb(0 0 0 / 0.45), 0 4px 12px -2px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 8px 32px -8px rgb(0 0 0 / 0.6);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-inset: var(--surface-inset);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-on-primary: var(--on-primary);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-soft-fg: var(--primary-soft-fg);
+
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-soft-fg: var(--accent-soft-fg);
+
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-warning-soft-fg: var(--warning-soft-fg);
+
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-soft-fg: var(--danger-soft-fg);
+
+  --color-ring: var(--ring);
+
+  --font-sans: 'IBM Plex Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Type scale — 1.200 minor third, anchored at 16px body */
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.125rem;
+  --text-sm: 0.8125rem;
+  --text-sm--line-height: 1.25rem;
+  --text-base: 0.9375rem;
+  --text-base--line-height: 1.5rem;
+  --text-lg: 1.0625rem;
+  --text-lg--line-height: 1.625rem;
+  --text-xl: 1.3125rem;
+  --text-xl--line-height: 1.875rem;
+  --text-2xl: 1.625rem;
+  --text-2xl--line-height: 2.125rem;
+  --text-3xl: 2rem;
+  --text-3xl--line-height: 2.375rem;
+  --text-4xl: 2.5rem;
+  --text-4xl--line-height: 2.75rem;
+  --text-5xl: 3.25rem;
+  --text-5xl--line-height: 3.375rem;
+
+  --radius-card: 0.625rem;
+  --radius-control: 0.5rem;
+
+  --shadow-card: var(--shadow-sm);
+  --shadow-raised: var(--shadow-md);
+  --shadow-float: var(--shadow-lg);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'cv05' 1;
+  }
+
+  /* Financial figures must align vertically across rows. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 600;
+    letter-spacing: -0.014em;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+
+  /* Never remove the focus ring — replace it only where the control draws its own. */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::selection {
+    background: var(--primary);
+    color: var(--on-primary);
+  }
+}
+
+@layer utilities {
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 100;
+  }
+
+  .skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+  }
+
+  /* A single restrained entrance. Motion conveys arrival, nothing more. */
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .animate-rise {
+    animation: rise 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-fade {
+    animation: fade 200ms ease-out both;
+  }
+}
+
+/* Honour the OS setting: strip motion, keep every state change legible. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Range input. Restyled but still a native control, so keyboard operation,
+   screen-reader semantics and OS pointer settings keep working unchanged.
+   The filled portion is driven by a --pct custom property set in React.
+   ------------------------------------------------------------------------ */
+.mfp-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 24px; /* generous hit area; the visible track is thinner */
+  background: transparent;
+}
+
+.mfp-range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--primary) 0%,
+    var(--primary) var(--pct),
+    var(--border-strong) var(--pct),
+    var(--border-strong) 100%
+  );
+}
+
+.mfp-range::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--border-strong);
+}
+
+.mfp-range::-moz-range-progress {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--primary);
+}
+
+.mfp-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -7px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--primary);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 150ms ease-out,
+    box-shadow 150ms ease-out;
+}
+
+.mfp-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--primary);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 150ms ease-out,
+    box-shadow 150ms ease-out;
+}
+
+.mfp-range:hover::-webkit-slider-thumb,
+.mfp-range:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+}
+
+.mfp-range:hover::-moz-range-thumb,
+.mfp-range:active::-moz-range-thumb {
+  transform: scale(1.12);
+}
+
+.mfp-range:focus-visible {
+  outline: none;
+}
+
+.mfp-range:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--ring) 35%, transparent);
+}
+
+.mfp-range:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--ring) 35%, transparent);
+}
+
+/* Recharts focus/---outline hygiene */
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
+}
+
+.recharts-sector:focus,
+.recharts-rectangle:focus {
+  outline: none;
+}

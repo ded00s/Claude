@@ -1,0 +1,705 @@
+<meta charset="utf-8" />
+<title>Стратегия реформирования пенсионной системы Республики Узбекистан на 2027–2040 годы</title>
+<style>
+  /* Шрифты вшиты в файл — документ отображается одинаково без интернета. */
+  @font-face {
+    font-family: 'Plex';
+    font-style: normal;
+    font-weight: 100 700;
+    font-display: swap;
+    src: url(__CYRILLIC__) format('woff2');
+    unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  }
+  @font-face {
+    font-family: 'Plex';
+    font-style: normal;
+    font-weight: 100 700;
+    font-display: swap;
+    src: url(__LATIN__) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+2122, U+2191, U+2193, U+2212, U+2215;
+  }
+
+  :root {
+    /* Фазы наследуют цветовое кодирование оригинала: синий → зелёный → фиолетовый */
+    --p1: #0d4a99;
+    --p1-dark: #0a3873;
+    --p1-soft: #eaf1fb;
+    --p2: #0f8046;
+    --p2-dark: #0b6135;
+    --p2-soft: #e8f5ed;
+    --p3: #6b3fa0;
+    --p3-dark: #52307c;
+    --p3-soft: #f1ebf9;
+
+    --navy: #0a2a5e;
+    --navy-deep: #071e45;
+    --ink: #0e1c33;
+    --muted: #4a5a75;
+    --subtle: #6b7a93;
+    --line: #dde4ee;
+    --line-soft: #eaeff6;
+    --paper: #ffffff;
+    --canvas: #eef2f7;
+    --gold: #c9a227;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--canvas);
+    font-family: 'Plex', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    padding: 24px 16px 48px;
+  }
+
+  .sheet {
+    width: 1280px;
+    max-width: 100%;
+    margin: 0 auto;
+    background: var(--paper);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(10, 42, 94, .06), 0 18px 48px -12px rgba(10, 42, 94, .2);
+  }
+
+  .tabular { font-variant-numeric: tabular-nums; }
+
+  /* ─────────────────────────── ШАПКА ─────────────────────────── */
+  .head {
+    background: linear-gradient(105deg, var(--navy-deep) 0%, var(--navy) 55%, #0d3a7d 100%);
+    color: #fff;
+    padding: 22px 32px 24px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 28px;
+    align-items: center;
+    position: relative;
+  }
+  /* Геометрический мотив — очень низкий контраст, работает как фактура бумаги */
+  .head::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.16) 1px, transparent 0);
+    background-size: 22px 22px;
+    -webkit-mask-image: linear-gradient(to left, #000, transparent 62%);
+            mask-image: linear-gradient(to left, #000, transparent 62%);
+    pointer-events: none;
+  }
+
+  .ministry {
+    display: flex; align-items: center; gap: 13px;
+    padding-right: 26px;
+    border-right: 1px solid rgba(255, 255, 255, .2);
+    position: relative; z-index: 1;
+  }
+  .ministry-rule {
+    width: 3px; align-self: stretch; min-height: 44px; flex: none;
+    border-radius: 2px;
+    background: linear-gradient(to bottom, #ffd76a, #c9a227);
+  }
+  .ministry-text {
+    font-size: 10.5px; font-weight: 600; letter-spacing: .055em;
+    text-transform: uppercase; line-height: 1.42; color: rgba(255,255,255,.94);
+    max-width: 168px;
+  }
+
+  .title-block { position: relative; z-index: 1; }
+  .eyebrow {
+    font-size: 11.5px; font-weight: 600; letter-spacing: .17em;
+    text-transform: uppercase; color: #8fb6ea; margin-bottom: 8px;
+  }
+  h1 { font-size: 25px; font-weight: 600; letter-spacing: -.01em; line-height: 1.24; }
+  h1 .accent { color: #ffd76a; }
+  .years {
+    display: inline-block; margin-top: 11px; padding: 4px 13px;
+    background: rgba(255, 255, 255, .12); border: 1px solid rgba(255,255,255,.22);
+    border-radius: 999px; font-size: 13px; font-weight: 600; letter-spacing: .04em;
+  }
+
+  /* ───────────────────── ЦЕЛЬ + ПОКАЗАТЕЛИ ───────────────────── */
+  .strip {
+    display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 20px; padding: 20px 32px; background: #f7f9fc;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .goal {
+    background: var(--paper); border: 1px solid var(--line);
+    border-left: 4px solid var(--gold);
+    border-radius: 10px; padding: 17px 20px;
+    display: flex; gap: 15px;
+    /* Текст цели короче соседней панели показателей — центрируем по вертикали,
+       иначе весь свободный воздух собирается внизу карточки. */
+    align-items: center;
+  }
+  .goal-label {
+    font-size: 11px; font-weight: 700; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 7px;
+  }
+  .goal-text { font-size: 15.5px; font-weight: 500; line-height: 1.5; color: var(--ink); }
+
+  .kpis {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 10px; overflow: hidden;
+  }
+  .kpis-head {
+    background: var(--navy); color: #fff; padding: 8px 16px;
+    font-size: 11px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
+  }
+  .kpi {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 8px 16px; border-bottom: 1px solid var(--line-soft);
+  }
+  .kpi:last-child { border-bottom: 0; }
+  .kpi-label { font-size: 12.5px; color: var(--muted); line-height: 1.32; }
+  .kpi-label b { display: block; color: var(--ink); font-weight: 600; }
+  .kpi-value {
+    font-size: 17px; font-weight: 700; color: var(--p1);
+    white-space: nowrap; letter-spacing: -.015em;
+  }
+  .kpi-value small { font-size: 11.5px; font-weight: 600; color: var(--subtle); margin-left: 3px; }
+
+  /* ───────────────────────── ЭТАПЫ ───────────────────────── */
+  .phases {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px; padding: 22px 32px;
+  }
+
+  .phase {
+    border: 1px solid var(--line); border-radius: 11px;
+    overflow: hidden; display: flex; flex-direction: column;
+    background: var(--paper);
+  }
+  .phase-head { padding: 13px 16px; color: #fff; display: flex; gap: 12px; align-items: flex-start; }
+  .phase-1 .phase-head { background: linear-gradient(120deg, var(--p1-dark), var(--p1)); }
+  .phase-2 .phase-head { background: linear-gradient(120deg, var(--p2-dark), var(--p2)); }
+  .phase-3 .phase-head { background: linear-gradient(120deg, var(--p3-dark), var(--p3)); }
+
+  .phase-num {
+    width: 30px; height: 30px; flex: none; border-radius: 50%;
+    background: rgba(255, 255, 255, .17); border: 1.5px solid rgba(255,255,255,.5);
+    display: grid; place-items: center; font-size: 15px; font-weight: 700;
+  }
+  .phase-title { font-size: 14px; font-weight: 600; line-height: 1.32; }
+  .phase-years {
+    font-size: 11.5px; font-weight: 500; color: rgba(255, 255, 255, .82);
+    margin-top: 2px; letter-spacing: .02em;
+  }
+  .phase-body { padding: 15px 16px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+
+  .item { display: flex; gap: 11px; align-items: flex-start; }
+  .item-num {
+    width: 21px; height: 21px; flex: none; border-radius: 6px;
+    display: grid; place-items: center; font-size: 11.5px; font-weight: 700; margin-top: 1px;
+  }
+  .phase-1 .item-num { background: var(--p1-soft); color: var(--p1); }
+  .phase-2 .item-num { background: var(--p2-soft); color: var(--p2); }
+  .phase-3 .item-num { background: var(--p3-soft); color: var(--p3); }
+
+  .item-title { font-size: 13px; font-weight: 600; line-height: 1.4; color: var(--ink); }
+  .item-note { font-size: 12px; color: var(--muted); line-height: 1.45; margin-top: 4px; }
+  .item-note b { color: var(--ink); font-weight: 600; }
+
+  /* Плашка ожидаемого результата */
+  .result { margin-top: 9px; border-radius: 8px; padding: 9px 12px; background: var(--p1-soft); }
+  .result-label {
+    font-size: 9.5px; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--p1); margin-bottom: 5px;
+  }
+  .result-row {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 10px; font-size: 12.5px; padding: 2px 0;
+  }
+  .result-row span { color: var(--muted); }
+  .result-row b { font-size: 15px; font-weight: 700; color: var(--p1-dark); letter-spacing: -.015em; }
+
+  .tag {
+    display: inline-block; padding: 2px 8px; border-radius: 5px;
+    font-size: 10.5px; font-weight: 600; letter-spacing: .02em;
+  }
+  .phase-1 .tag { background: var(--p1-soft); color: var(--p1-dark); }
+  .phase-2 .tag { background: var(--p2-soft); color: var(--p2-dark); }
+  .phase-3 .tag { background: var(--p3-soft); color: var(--p3-dark); }
+
+  /* Врезка «Результаты II этапа» */
+  .outcome {
+    background: var(--p2-soft); border: 1px solid #cfe6da;
+    border-radius: 8px; padding: 11px 13px; margin-top: 2px;
+  }
+  .outcome-label {
+    font-size: 10px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--p2-dark); margin-bottom: 7px;
+  }
+  .outcome-item {
+    display: flex; gap: 8px; font-size: 11.5px; color: #1d4a34;
+    line-height: 1.42; padding: 3px 0;
+  }
+  .outcome-item svg { flex: none; margin-top: 2px; }
+
+  /* Партнёры */
+  .partners { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .partner {
+    font-size: 11px; font-weight: 600; color: #3f4a5e;
+    background: #f4f6fa; border: 1px solid var(--line);
+    border-radius: 6px; padding: 4px 9px; letter-spacing: .01em;
+  }
+
+  /* Портфель: донат + расшифровка */
+  /* Третий этап несёт меньше текста, чем первые два. Диаграмма и расшифровка
+     занимают освободившуюся высоту, вместо того чтобы оставлять пустое поле. */
+  .portfolio { margin-top: 12px; }
+  .donut-wrap { display: grid; place-items: center; margin-bottom: 14px; }
+  .legend { display: flex; flex-direction: column; gap: 2px; }
+  .legend-row {
+    display: flex; align-items: center; gap: 9px; font-size: 12px;
+    padding: 6px 2px; border-bottom: 1px solid var(--line-soft);
+  }
+  .legend-row:last-child { border-bottom: 0; }
+  .dot { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+  .legend-name { flex: 1; color: var(--muted); line-height: 1.3; }
+  .legend-val { font-weight: 700; color: var(--ink); font-size: 13px; }
+
+  /* ──────────────────────── ТАЙМЛАЙН ──────────────────────── */
+  .timeline { padding: 4px 32px 24px; }
+  .timeline-inner {
+    background: #f7f9fc; border: 1px solid var(--line);
+    border-radius: 11px; padding: 18px 24px;
+    display: grid; grid-template-columns: repeat(4, 1fr); align-items: center;
+  }
+  .tl-step { position: relative; text-align: center; }
+  .tl-step::before {
+    content: ''; position: absolute; top: 9px; left: 50%; right: -50%; height: 2px;
+    background: linear-gradient(to right, var(--from), var(--to));
+  }
+  .tl-step:last-child::before { display: none; }
+  .tl-dot {
+    width: 20px; height: 20px; border-radius: 50%; margin: 0 auto 9px;
+    background: #fff; border: 3px solid var(--dot); position: relative; z-index: 1;
+  }
+  .tl-year { font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -.015em; }
+  .tl-label {
+    display: inline-block; margin-top: 7px; padding: 4px 15px; border-radius: 999px;
+    font-size: 11.5px; font-weight: 600; color: #fff; letter-spacing: .02em;
+  }
+
+  /* ───────────────────── УПРАВЛЕНИЕ РИСКАМИ ───────────────────── */
+  .risks { background: linear-gradient(110deg, var(--navy-deep), var(--navy)); color: #fff; padding: 20px 32px 22px; }
+  .risks-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-bottom: 15px; }
+  .risks-title { font-size: 14.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+  .risks-sub { font-size: 12px; color: #a9c4e8; line-height: 1.4; }
+  .risk-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+  .risk {
+    background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: 8px; padding: 11px 12px; border-top: 2.5px solid var(--rc);
+  }
+  .risk-name { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 5px; line-height: 1.3; }
+  .risk-desc { font-size: 11px; color: #b8cde9; line-height: 1.45; }
+
+  /* ────────────────────────── СНОСКА ────────────────────────── */
+  .foot {
+    background: var(--navy-deep); color: #b8cde9;
+    padding: 12px 32px 14px; font-size: 11.5px; line-height: 1.7;
+    border-top: 1px solid rgba(255, 255, 255, .1);
+  }
+  .foot-label {
+    font-weight: 700; color: #ffd76a; letter-spacing: .1em;
+    text-transform: uppercase; font-size: 10.5px; margin-right: 4px;
+  }
+  /* Пункты остаются inline: flex здесь разрывал бы текст на части и вставлял
+     зазор перед запятой. Разделитель — через ::before с отступами. */
+  .foot-item { display: inline; }
+  .foot-item + .foot-item::before {
+    content: '•'; color: #4d7ab5; margin: 0 9px;
+  }
+  .foot b { color: #e4eefb; font-weight: 600; }
+
+  .note {
+    width: 1280px; max-width: 100%; margin: 14px auto 0;
+    font-size: 11.5px; color: var(--subtle); line-height: 1.5; text-align: center;
+  }
+
+  /* ───────────────────── АДАПТИВНОСТЬ / ПЕЧАТЬ ───────────────────── */
+  @media (max-width: 1100px) {
+    .phases { grid-template-columns: 1fr; }
+    .strip { grid-template-columns: 1fr; }
+    .risk-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .head { grid-template-columns: 1fr; gap: 16px; }
+    .ministry { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.2); padding: 0 0 14px; }
+  }
+  @media (max-width: 720px) {
+    body { padding: 12px 8px 32px; }
+    .head, .strip, .phases, .timeline, .risks, .foot { padding-left: 16px; padding-right: 16px; }
+    .risk-grid { grid-template-columns: 1fr 1fr; }
+    .timeline-inner { grid-template-columns: 1fr 1fr; gap: 18px 0; }
+    .tl-step::before { display: none; }
+    h1 { font-size: 20px; }
+  }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .sheet { box-shadow: none; border-radius: 0; width: 1280px; max-width: 1280px; }
+    .note { display: none; }
+    /* Размер листа задаётся при экспорте по фактической высоте макета,
+       поэтому здесь только обнуляем поля — иначе лист рвётся посередине. */
+    @page { margin: 0; }
+  }
+</style>
+
+<div class="sheet">
+
+  <!-- ═══════════════════ ШАПКА ═══════════════════ -->
+  <header class="head">
+    <div class="ministry">
+      <!-- Нейтральный типографский акцент, а не государственная символика:
+           воспроизводить официальную эмблему в неофициальном материале нельзя. -->
+      <span class="ministry-rule" aria-hidden="true"></span>
+      <div class="ministry-text">
+        Министерство<br />экономики и финансов<br />Республики Узбекистан
+      </div>
+    </div>
+
+    <div class="title-block">
+      <div class="eyebrow">Республика Узбекистан</div>
+      <h1>
+        <span class="accent">Стратегия</span> реформирования пенсионной системы
+      </h1>
+      <div class="years">2027 — 2040 годы</div>
+    </div>
+  </header>
+
+  <!-- ═══════════════ ЦЕЛЬ + ЦЕЛЕВЫЕ ПОКАЗАТЕЛИ ═══════════════ -->
+  <section class="strip">
+    <div class="goal">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true" style="flex:none;margin-top:2px">
+        <circle cx="17" cy="17" r="15" fill="none" stroke="#c9a227" stroke-opacity=".28" stroke-width="2"/>
+        <circle cx="17" cy="17" r="9.5" fill="none" stroke="#c9a227" stroke-opacity=".55" stroke-width="2"/>
+        <circle cx="17" cy="17" r="4" fill="#c9a227"/>
+      </svg>
+      <div>
+        <div class="goal-label">Цель</div>
+        <p class="goal-text">
+          «Поэтапный переход к системе, в которой размер пенсии напрямую зависит
+          от объёма и продолжительности уплаченных взносов».
+        </p>
+      </div>
+    </div>
+
+    <div class="kpis">
+      <div class="kpis-head">Целевые показатели</div>
+
+      <div class="kpi">
+        <div class="kpi-label"><b>2030 год</b>активы DC</div>
+        <div class="kpi-value tabular">7–10 <small>трлн сум</small></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label"><b>2040 год</b>пенсионные активы</div>
+        <div class="kpi-value tabular">150–200 <small>трлн сум</small></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label"><b>Число участников</b>накопительной системы</div>
+        <div class="kpi-value tabular">7 <small>млн человек</small></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label"><b>Пенсионные активы</b>по отношению к ВВП</div>
+        <div class="kpi-value tabular">7–10 <small>%</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ ТРИ ЭТАПА ═══════════════════ -->
+  <section class="phases">
+
+    <!-- ─────────── ЭТАП I ─────────── -->
+    <article class="phase phase-1">
+      <div class="phase-head">
+        <div class="phase-num">1</div>
+        <div>
+          <div class="phase-title">Развитие накопительной пенсионной системы</div>
+          <div class="phase-years">Этап I · 2027–2030 годы · добровольный DC</div>
+        </div>
+      </div>
+
+      <div class="phase-body">
+        <div class="item">
+          <div class="item-num">1</div>
+          <div>
+            <div class="item-title">
+              Софинансирование пенсионных взносов государством
+              <span class="tag">Matching contribution — до 50%</span>
+            </div>
+            <p class="item-note">
+              <b>Участники:</b> граждане с ежемесячной заработной платой до 7,1 млн сум.
+            </p>
+            <div class="result">
+              <div class="result-label">Ожидаемый результат</div>
+              <div class="result-row"><span>в 2027 году</span><b class="tabular">1,56 трлн сум</b></div>
+              <div class="result-row"><span>в 2030 году</span><b class="tabular">7,6 трлн сум</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-num">2</div>
+          <div>
+            <div class="item-title">
+              Направление средств на накопительный счёт
+              <span class="tag">Carve-out — 1–3%</span>
+            </div>
+            <p class="item-note">
+              <b>Участники:</b> граждане с ежемесячной заработной платой свыше 7,1 млн сум.
+            </p>
+            <div class="result">
+              <div class="result-label">Ожидаемый результат</div>
+              <div class="result-row"><span>в 2027 году</span><b class="tabular">935 млрд сум</b></div>
+              <div class="result-row"><span>в 2030 году</span><b class="tabular">4,4 трлн сум</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-num">3</div>
+          <div>
+            <div class="item-title">Передача ИНПС из Народного банка в Пенсионный фонд</div>
+            <p class="item-note">
+              <b>Цель:</b> формирование единого администратора пенсионной системы
+              и создание единого цифрового профиля граждан.
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ─────────── ЭТАП II ─────────── -->
+    <article class="phase phase-2">
+      <div class="phase-head">
+        <div class="phase-num">2</div>
+        <div>
+          <div class="phase-title">Внедрение пенсионной модели NDC + DC</div>
+          <div class="phase-years">Этап II · 2028–2035 годы</div>
+        </div>
+      </div>
+
+      <div class="phase-body">
+        <div class="item">
+          <div class="item-num">1</div>
+          <div><div class="item-title">Накопительный компонент <span class="tag">DC</span></div></div>
+        </div>
+
+        <div class="item">
+          <div class="item-num">2</div>
+          <div><div class="item-title">Обязательный накопительный компонент <span class="tag">NDC</span></div></div>
+        </div>
+
+        <div class="item">
+          <div class="item-num">3</div>
+          <div>
+            <div class="item-title">Пенсионная формула</div>
+            <p class="item-note">
+              Размер пенсии = <b>(капитал NDC ÷ 17,7 года)</b> + <b>(капитал DC ÷ 17,7 года)</b>
+            </p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-num">4</div>
+          <div><div class="item-title">Государственные гарантии по базовой пенсии</div></div>
+        </div>
+
+        <div class="item">
+          <div class="item-num">5</div>
+          <div>
+            <div class="item-title">Корпоративные пенсии</div>
+            <p class="item-note">
+              Для работающих во вредных условиях труда вводится система уплаты
+              работодателем дополнительного взноса в размере <b>5%</b>.
+            </p>
+          </div>
+        </div>
+
+        <div class="outcome">
+          <div class="outcome-label">Результаты II этапа</div>
+          <div class="outcome-item">
+            <svg width="13" height="13" viewBox="0 0 14 14" aria-hidden="true">
+              <path d="M2 10.5L5.5 6.5l2.5 2.5L12 4" fill="none" stroke="#0f8046" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 4h3v3" fill="none" stroke="#0f8046" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Повышается доля пенсии по отношению к заработной плате.</span>
+          </div>
+          <div class="outcome-item">
+            <svg width="13" height="13" viewBox="0 0 14 14" aria-hidden="true">
+              <path d="M5.6 8.4a2.6 2.6 0 010-3.7l1.6-1.6a2.6 2.6 0 013.7 3.7l-.8.8" fill="none" stroke="#0f8046" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M8.4 5.6a2.6 2.6 0 010 3.7l-1.6 1.6a2.6 2.6 0 01-3.7-3.7l.8-.8" fill="none" stroke="#0f8046" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            <span>Усиливается связь между размером пенсии и уплаченными взносами.</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ─────────── ЭТАП III ─────────── -->
+    <article class="phase phase-3">
+      <div class="phase-head">
+        <div class="phase-num">3</div>
+        <div>
+          <div class="phase-title">Институциональное развитие и инвестирование</div>
+          <div class="phase-years">Этап III · 2028–2029 годы</div>
+        </div>
+      </div>
+
+      <div class="phase-body">
+        <div class="item">
+          <div class="item-num">1</div>
+          <div>
+            <div class="item-title">
+              Создание «Национальной компании по развитию накопительного
+              пенсионного обеспечения»
+            </div>
+            <p class="item-note">Потенциальные партнёры:</p>
+            <div class="partners">
+              <span class="partner">Franklin Templeton</span>
+              <span class="partner">BlackRock</span>
+              <span class="partner">Amundi</span>
+              <span class="partner">Fidelity</span>
+              <span class="partner">Allianz</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-num">2</div>
+          <div style="flex:1;min-width:0">
+            <div class="item-title">Формирование инвестиционного портфеля</div>
+
+            <div class="portfolio">
+              <div class="donut-wrap">
+              <svg width="164" height="164" viewBox="0 0 42 42" role="img"
+                   aria-label="Структура инвестиционного портфеля: государственные ценные бумаги 40 процентов, ипотечные облигации 20 процентов, инфраструктурные проекты 15 процентов, корпоративные облигации 15 процентов, ETF 10 процентов">
+                <circle cx="21" cy="21" r="15.9" fill="none" stroke="#eef2f7" stroke-width="7"/>
+                <!-- Каждый сегмент подписан процентом в расшифровке справа —
+                     цвет не является единственным носителем значения. -->
+                <circle cx="21" cy="21" r="15.9" fill="none" stroke="#0d4a99" stroke-width="7"
+                        stroke-dasharray="40 60" stroke-dashoffset="25"/>
+                <circle cx="21" cy="21" r="15.9" fill="none" stroke="#3a7bd5" stroke-width="7"
+                        stroke-dasharray="20 80" stroke-dashoffset="-15"/>
+                <circle cx="21" cy="21" r="15.9" fill="none" stroke="#0f8046" stroke-width="7"
+                        stroke-dasharray="15 85" stroke-dashoffset="-35"/>
+                <circle cx="21" cy="21" r="15.9" fill="none" stroke="#6b3fa0" stroke-width="7"
+                        stroke-dasharray="15 85" stroke-dashoffset="-50"/>
+                <circle cx="21" cy="21" r="15.9" fill="none" stroke="#d99022" stroke-width="7"
+                        stroke-dasharray="10 90" stroke-dashoffset="-65"/>
+              </svg>
+              </div>
+
+              <div class="legend">
+                <div class="legend-row">
+                  <span class="dot" style="background:#0d4a99"></span>
+                  <span class="legend-name">Государственные ценные бумаги</span>
+                  <span class="legend-val tabular">40%</span>
+                </div>
+                <div class="legend-row">
+                  <span class="dot" style="background:#3a7bd5"></span>
+                  <span class="legend-name">Ипотечные облигации</span>
+                  <span class="legend-val tabular">20%</span>
+                </div>
+                <div class="legend-row">
+                  <span class="dot" style="background:#0f8046"></span>
+                  <span class="legend-name">Инфраструктурные проекты</span>
+                  <span class="legend-val tabular">15%</span>
+                </div>
+                <div class="legend-row">
+                  <span class="dot" style="background:#6b3fa0"></span>
+                  <span class="legend-name">Корпоративные облигации</span>
+                  <span class="legend-val tabular">15%</span>
+                </div>
+                <div class="legend-row">
+                  <span class="dot" style="background:#d99022"></span>
+                  <span class="legend-name">ETF</span>
+                  <span class="legend-val tabular">10%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ═══════════════════ ТАЙМЛАЙН ═══════════════════ -->
+  <section class="timeline">
+    <div class="timeline-inner">
+      <div class="tl-step" style="--from:#0d4a99;--to:#0f8046;--dot:#0d4a99">
+        <div class="tl-dot"></div>
+        <div class="tl-year tabular">2027</div>
+        <div class="tl-label" style="background:#0d4a99">Этап I</div>
+      </div>
+      <div class="tl-step" style="--from:#0f8046;--to:#6b3fa0;--dot:#0f8046">
+        <div class="tl-dot"></div>
+        <div class="tl-year tabular">2030</div>
+        <div class="tl-label" style="background:#0f8046">Этап II</div>
+      </div>
+      <div class="tl-step" style="--from:#6b3fa0;--to:#c9a227;--dot:#6b3fa0">
+        <div class="tl-dot"></div>
+        <div class="tl-year tabular">2035</div>
+        <div class="tl-label" style="background:#6b3fa0">Этап III</div>
+      </div>
+      <div class="tl-step" style="--dot:#c9a227">
+        <div class="tl-dot"></div>
+        <div class="tl-year tabular">2040</div>
+        <div class="tl-label" style="background:#c9a227;color:#3d3008">Цель</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ УПРАВЛЕНИЕ РИСКАМИ ═══════════════ -->
+  <section class="risks">
+    <div class="risks-head">
+      <div class="risks-title">Управление рисками</div>
+      <div class="risks-sub">
+        — необходимое условие устойчивости «длинных денег»
+        (на основе рекомендаций Всемирного банка и IOPS)
+      </div>
+    </div>
+
+    <div class="risk-grid">
+      <div class="risk" style="--rc:#4d8fe0">
+        <div class="risk-name">Системный риск</div>
+        <div class="risk-desc">Макростабильность, международная диверсификация</div>
+      </div>
+      <div class="risk" style="--rc:#3fb883">
+        <div class="risk-name">Портфельный риск</div>
+        <div class="risk-desc">Инвестиционные лимиты, требования к диверсификации</div>
+      </div>
+      <div class="risk" style="--rc:#9b76d4">
+        <div class="risk-name">Операционный риск</div>
+        <div class="risk-desc">Сегрегация активов, кастодиан, внешний аудит</div>
+      </div>
+      <div class="risk" style="--rc:#e8b04b">
+        <div class="risk-name">Агентский риск</div>
+        <div class="risk-desc">Лицензирование, корпоративное управление, прозрачность</div>
+      </div>
+      <div class="risk" style="--rc:#5ec8d8">
+        <div class="risk-name">Риск участника</div>
+        <div class="risk-desc">Прозрачность и информирование через «Моя пенсия»</div>
+      </div>
+      <div class="risk" style="--rc:#e88b6b">
+        <div class="risk-name">Комиссионный риск</div>
+        <div class="risk-desc">Лимиты на комиссии, централизованные сервисы</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ СНОСКА ═══════════════════ -->
+  <footer class="foot">
+    <span class="foot-label">Дополнительно</span>
+    <span class="foot-item">частные пенсионные фонды — <b>закон 2027 года</b></span>
+    <span class="foot-item">государственная гарантия</span>
+    <span class="foot-item">минимальная пенсия при стаже <b>свыше 15 лет</b></span>
+    <span class="foot-item">национальная компания: Пенсионный фонд — <b>51%</b>, стратегический партнёр — <b>49%</b></span>
+  </footer>
+</div>
+
+<p class="note">
+  Перевод инфографики с узбекского языка на русский. Структура, состав разделов
+  и все числовые значения сохранены без изменений.
+</p>
